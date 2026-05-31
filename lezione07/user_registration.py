@@ -1,21 +1,97 @@
-# Registrazione utente
+from getpass import getpass
+import json
+import os
 
-# Username
+# Nome del database
+DATABASE_FILE = "utenti_db.json"
+
+# Carico i dati dal json
+def load_database(): 
+    if os.path.exists(DATABASE_FILE):
+        try:
+            with open(DATABASE_FILE, "r", encoding="utf-8") as file:
+                return json.load(file)
+        except json.JSONDecodeError:
+            return []  # Se il file è corrotto, restituisce una lista vuota
+    return []  # IMPORTANTE: Se il file non esiste, restituisce una lista vuota invece di None
+
+# Salvo i dati nel json
+def save_database(database):
+    with open(DATABASE_FILE, "w", encoding="utf-8") as file:
+        json.dump(database, file, indent=4)
+
+# Setto un database interno per memorizzare le informazioni degli utenti
+database_utenti = load_database()
+
+print("Benvenuto al processo di registrazione!")
+
+# --- 1. VALIDAZIONE USERNAME ---
 while True:
     username = input("Inserisci il tuo username: ")
     
-    if not username or len(username) < 5 or len(username) > 12:
+    # Controlliamo se lo username esiste già nella lista di dizionari
+    username_gia_presente = any(user['username'] == username for user in database_utenti)
+    
+    if username_gia_presente:
+        print("Username già utilizzato. Scegline un altro.")
+    elif not username or len(username) < 5 or len(username) > 12:
         print("Username non può essere vuoto e deve essere compreso tra i 5 e i 12 caratteri. Riprova.")
     else:
         break
-print(f"Benvenuto, {username}!")
+print(f"Username accettato: {username}!")
 
-#Password
-caretteri_speciali = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~" # Aggiunta di caratteri speciali per la validazione della password
+# --- 2. VALIDAZIONE PASSWORD ---
+# Stringa con i caratteri speciali per la validazione della password
+caratteri_speciali = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~" 
 while True:
-    password = input("Inserisci la tua password: ")
-    if not password or len(password) < 8 or len(password) > 20 or not any(char.isdigit() for char in password) or not any(char.isalpha() for char in password) or password.isspace() or not any(char.isalnum() for char in password) or not any(char in caretteri_speciali for char in password):
-        print("Password deve essere compresa tra gli 8 e i 20 caratteri e deve contenere almeno una lettera e un numero, un carattere speciale e non deve contenere spazi. Riprova.")
+    password = getpass("Inserisci la tua password: ")
+    
+    # Verifichiamo i requisiti di sicurezza complessi richiesti
+    if (not password or 
+        len(password) < 8 or 
+        len(password) > 20 or 
+        not any(char.isdigit() for char in password) or 
+        not any(char.isalpha() for char in password) or
+        not any(char.isupper() for char in password) or
+        " " in password or  # Modo più semplice per verificare la presenza di spazi
+        not any(char in caratteri_speciali for char in password)):
+        print("La password deve essere compresa tra gli 8 e i 20 caratteri, contenere almeno una lettera maiuscola, un numero, un carattere speciale e non deve contenere spazi. Riprova.")
     else:
         break
 print("Password accettata.")
+
+# --- 3. VALIDAZIONE EMAIL ---
+while True:
+    email = input("Inserisci il tuo indirizzo email: ")
+    
+    # Controlliamo se l'email esiste già nella lista di dizionari
+    email_gia_presente = any(user['email'] == email for user in database_utenti)
+    
+    if email_gia_presente:
+        print("Indirizzo email già utilizzato. Scegline un altro.")
+    elif not email or "@" not in email or "." not in email:
+        print("Indirizzo email non valido. Riprova.")
+    else:
+        break
+print(f"Indirizzo email accettato: {email}.")
+
+# --- 4. SALVATAGGIO DEI DATI ---
+# Aggiungiamo il nuovo utente come dizionario all'interno della lista globale
+database_utenti.append({
+    "username": username, 
+    "email": email, 
+    "password": password
+})
+save_database(database_utenti)
+
+# --- 5. RIEPILOGO FINALE ---
+print("\n--- RIEPILOGO REGISTRAZIONE ---")
+print("Utenti registrati:")
+for user in database_utenti:
+    print(f"- {user['username']}")
+
+print("\nIndirizzi email registrati:")
+for user in database_utenti:
+    print(f"- {user['email']}")
+
+print("\nRegistrazione completata con successo, grazie per aver scelto il nostro servizio. Nfr è un ricchione")
