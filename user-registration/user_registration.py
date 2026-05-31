@@ -41,22 +41,30 @@ while True:
 print(f"Username accettato: {username}!")
 
 # --- 2. VALIDAZIONE PASSWORD ---
-# Stringa con i caratteri speciali per la validazione della password
 caratteri_speciali = "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~" 
+
 while True:
     password = getpass("Inserisci la tua password: ")
     
-    # Verifichiamo i requisiti di sicurezza complessi richiesti
+    # Controlliamo prima se NON rispetta i requisiti
     if (not password or 
         len(password) < 8 or 
         len(password) > 20 or 
         not any(char.isdigit() for char in password) or 
         not any(char.isalpha() for char in password) or
         not any(char.isupper() for char in password) or
-        " " in password or  # Modo più semplice per verificare la presenza di spazi
+        " " in password or 
         not any(char in caratteri_speciali for char in password)):
-        print("La password deve essere compresa tra gli 8 e i 20 caratteri, contenere almeno una lettera maiuscola, un numero, un carattere speciale e non deve contenere spazi. Riprova.")
+        print("La password non rispetta i requisiti di sicurezza. Servono almeno una lettera maiuscola, un numero e un carattere speciale, inoltre deve essere compresa tra gli 8 e i 20 caratteri. Riprova.")
+        continue  # Ricomincia il ciclo dall'inizio, ignorando la conferma sotto
+    
+    # Se il programma arriva qui, significa che la password è sicura
+    conferma_password = getpass("Conferma la tua password: ")
+    if password != conferma_password:
+        print("Le password non corrispondono. Riprova da capo.")
+        # Non serve mettere nulla, il ciclo ricomincerà da solo dall'inizio
     else:
+        # Se sono uguali, la registrazione della password è finita!
         break
 print("Password accettata.")
 
@@ -93,5 +101,4 @@ for user in database_utenti:
 print("\nIndirizzi email registrati:")
 for user in database_utenti:
     print(f"- {user['email']}")
-
 print("\nRegistrazione completata con successo, grazie per aver scelto il nostro servizio. Nfr è un ricchione")
