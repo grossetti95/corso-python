@@ -36,7 +36,31 @@ def manipola_lista():
     copia.insert(7, 50)
     # e) rimuove il valore 8 della lista
     copia.remove(8)
+    # f) ordina la copia
+    copia.sort()
     
+    print(f"\nCopia modificata e ordinata: {copia}")
+    print(f"Originale intatta:           {numeri}")
     
+    # 3: enumerate per stampare ognu elemento
+    # con il suo indice E se pari o dispari
+    # formato: "Indice 0: 1 → dispari"
+    print("\nLista con indice:")
+    for i, n in enumerate(numeri):
+        tipo = "pari" if n % 2 == 0 else "dispari"
+        print(f"Indice {i:2}: {n:2} → {tipo}")
+        
+    # 4: costruisci queste liste con list comprehension
+    # a) Lista dei quadrati dei numeri da 1 a 15
+    quadrati = [n**2 for n in numeri]
+    # b) Solo i quadrati superiori a 100
+    quadrati_sopra_100 = [n for n in quadrati if n > 100]
+    # c) stringhe nel formato "n²=quad" per ogni n in range(1,6)
+    stringhe = [f"{n}²={n**2}" for n in range(1, 6)]
+    
+    print(f"\nQuadrati dei numeri da 1 a 15: {quadrati}")
+    print(f"Quadrati superiori a 100: {quadrati_sopra_100}")
+    print(f"Stringhe nel formato richiesto: {stringhe}")
+
 if __name__ == "__main__":
-    manipola_lista()    
+    manipola_lista()
