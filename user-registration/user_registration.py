@@ -101,4 +101,4 @@ for user in database_utenti:
 print("\nIndirizzi email registrati:")
 for user in database_utenti:
     print(f"- {user['email']}")
-print("\nRegistrazione completata con successo, grazie per aver scelto il nostro servizio. Nfr è un ricchione")
+print("\nRegistrazione completata con successo, grazie per aver scelto il nostro servizio. Nfr è un ricchione frocio bastardo pezzo di merda figlio di")
