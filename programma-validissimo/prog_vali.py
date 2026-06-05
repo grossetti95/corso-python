@@ -3,7 +3,7 @@
 def indovina_il_frocio():
     # Array di froci
     froci = ["jenk", "chelaudio", "tisoni", "tipeppe", "phil", "mrmr"]
-    # Input dell'utente
+    # Input dell'utente case-insensitive
     indovina = input("Indovina il frocio: ")
     
     # Rendo input case-insensitive
