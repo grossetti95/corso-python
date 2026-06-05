@@ -1,11 +1,11 @@
 # Sintassi base dizionari
 studente = {
-    "nome": "Mario",
-    "cognome": "Rossi",
-    "eta": 20,
-    "corsi": ["Matematica", "Informatica", "Fisica"],
-    "voto": 28,
-    "attiva": True
+    "nome": "Nfr",
+    "cognome": "Ricchione",
+    "eta": 28,
+    "corsi": ["Cazzo in culo", "Bocchinologia", "Storia del cazzo"],
+    "voto": 30,
+    "frociamma": True
 }
 
 # Accesso ai valori del dizionario con parentesi quadre
@@ -14,7 +14,7 @@ print(studente["voto"])
 
 # Accesso con .get() - restituisce None (o un default) se la chiave non esiste
 print(studente.get("indirizzo"))  # Restituisce None
-print(studente.get("nome"))  # Restituisce "Mario"
+print(studente.get("nome"))  # Restituisce "Nfr"
 print(studente.get("indirizzo", "Indirizzo non disponibile"))  # Restituisce il messaggio di default
 
 # Modifica dei valori del dizionario
