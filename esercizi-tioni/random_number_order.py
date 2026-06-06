@@ -33,5 +33,6 @@ numeri_ordinati = []
 for i in range(len(numeri)):
     valore_minimo = min(numeri)
     numeri_ordinati.append(valore_minimo)
+    numeri.pop(numeri.index(valore_minimo))
 
 print("Numeri ordinati:", *numeri_ordinati)
