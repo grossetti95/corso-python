@@ -1,5 +1,3 @@
-# Genera un array di 20 numeri casuali, poi stampa i numeri nell'ordine in cui vengono generati, e poi in ordine crescente.
-
 import random
 
 numeri = random.sample(range(1, 81), 20)  # genera 20 numeri unici tra 1 e 80
