@@ -27,4 +27,11 @@ if tentativi == 0:
     print("Hai esaurito i tentativi")
 
 print("Numeri generati:", *numeri)
-print("Numeri in ordine crescente:", *sorted(numeri))
+
+numeri_ordinati = []
+
+for i in range(len(numeri)):
+    valore_minimo = min(numeri)
+    numeri_ordinati.append(valore_minimo)
+
+print("Numeri ordinati:", *numeri_ordinati)
