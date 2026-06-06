@@ -31,3 +31,55 @@ def analisi_testo():
 
     # Lista di tutte le parole in minuscolo
     parole = [p.lower() for p in testo_pulito.split() if p]
+
+    # Il dizionario ha forma {parola: conteggio}
+    frequenze = {}
+
+    for parola in parole:
+        if parola in frequenze:
+            # la parola esiste già: incrementa il contatore
+            frequenze[parola] += 1
+        else:
+            # la parola è nuova: inizializzala a 1
+            frequenze[parola] = 1
+
+    # Alternativa più compatta (equivalente):
+    # frequenze[parola] = frequenze.get(parola, 0) + 1
+
+      # sorted() su .items() restituisce lista di tuple (parola, conteggio)
+    # key=lambda x: x[1] ordina per il secondo elemento della tupla (il conteggio)
+    per_frequenza = sorted(frequenze.items(), key=lambda x: x[1], reverse=True)
+    top5 = per_frequenza[:5]
+
+    parole_uniche = set(parole)
+
+    # Parole di stopword (da escludere dall'analisi semantica)
+    stopwords = {"il", "lo", "la", "i", "gli", "le", "un", "una",
+                 "di", "da", "in", "con", "su", "per", "tra", "fra",
+                 "e", "o", "ma", "se", "che", "non", "è", "a", "del",
+                 "della", "dei", "degli", "delle", "al", "alla"}
+
+    # Parole significative = parole uniche - stopwords
+    parole_significative = parole_uniche - stopwords
+
+    print(f"\n{'='*45}")
+    print(f"  REPORT ANALISI TESTO")
+    print(f"{'='*45}")
+    print(f"  Caratteri totali:      {len(testo)}")
+    print(f"  Parole totali:         {len(parole)}")
+    print(f"  Parole uniche:         {len(parole_uniche)}")
+    print(f"  Parole significative:  {len(parole_significative)}")
+    print(f"  Parole solo una volta: "
+          f"{sum(1 for v in frequenze.values() if v == 1)}")
+
+    print(f"\n  Top 5 parole più usate:")
+    for parola, conteggio in top5:
+        barra = "█" * conteggio
+        print(f"  {parola:<15} {conteggio:3}x  {barra}")
+
+    print(f"\n  Parole significative (ordinate):")
+    print(f"  {', '.join(sorted(parole_significative))}")
+
+
+if __name__ == "__main__":
+    analisi_testo()
