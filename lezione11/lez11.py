@@ -62,3 +62,22 @@ def valida_e_formatta():
         break
 
     return dati
+
+    # Stampa scheda finale formattata
+    largh = 42
+    print(f"\n{'='*largh}")
+    print(f"{'SCHEDA ANAGRAFICA':^{largh}}")
+    print(f"{'='*largh}")
+    print(f"  {'Nome e cognome:':<20} {dati['nome']}")
+    print(f"  {'Codice fiscale:':<20} {dati['cf']}")
+    print(f"  {'Email:':<20} {dati['email']}")
+    print(f"  {'Telefono:':<20} {dati['telefono']}")
+    
+    # Estrai anno di nascita dal CF (caratteri 6-7-8-9 = anno a 2 cifre)
+    anno_cf = dati['cf'][6:8]
+    print(f"  {'Anno nascita (CF):':<20} 19{anno_cf} o 20{anno_cf}")
+    print(f"{'='*largh}")
+
+
+if __name__ == "__main__":
+    valida_e_formatta()
