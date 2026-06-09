@@ -33,7 +33,7 @@ while True:
         else:
             print("Inserisci un carattere valido (s/n)")
 
-
+    # Esco dal ciclo
     if nuovo_prodotto == "n":
         break
 
