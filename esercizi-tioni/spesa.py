@@ -2,6 +2,10 @@
 lista_spesa = []
 subtotale = 0.0 # Inizializzo subtotale prima del ciclo
 
+# Budgeting
+budget_min = float(input("Inserisci il tuo budget minimo: "))
+budget_max = float(input("Inserisci il tuo budget massimo: "))
+
 
 # Dichiaro gli input delle info prodotto
 while True:
@@ -36,6 +40,15 @@ while True:
     # Esco dal ciclo
     if nuovo_prodotto == "n":
         break
+# Ciclo per budgeting
+while True:
+    if subtotale < budget_min:
+        print("Hai speso molto poco! Sicuro di aver comprato tutto?")
+    elif subtotale >= budget_min and subtotale <= budget_max:
+        print("Hai speso il giusto restando nei tuoi parametri! Bravo!")
+        break
+    elif subtotale > budget_max:
+        print("Hai speso troppo! Togli qualcosa!")
 
 # Print finale di tutto il report
 print("=== LISTA DELLA SPESA ===")
